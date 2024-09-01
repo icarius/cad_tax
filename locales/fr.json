@@ -1,0 +1,18 @@
+{
+    "Lang" : {
+        "player_tax" : "Impôt sur le joueur reçu de $%d",
+        "car_tax" : "Impôt sur les véhicules reçu de $%d",
+        "house_tax" : "Impôt sur les maisons reçu de $%d"
+    },
+    "Tax": {
+        "Players": "Vous avez été imposé à hauteur de %s % par le gouvernement pour $%s.",
+        "Cars": "Vous avez été imposé de $%s en tant qu'impôt sur les véhicules.",
+        "Houses": "Vous avez été imposé de $%s en tant qu'impôt sur les maisons.",
+        "Default": "Vous avez été imposé au taux standard par le gouvernement pour $%s."
+    },
+    "Logs": {
+        "Players": "CID: [%s] \na été facturé un impôt sur le revenu de $%s",
+        "Cars": "CID : [%s] \na été facturé un impôt sur les véhicules de $%s",
+        "Houses": "CID: [%s] \na été facturé un impôt sur les maisons de $%s"
+    }
+}

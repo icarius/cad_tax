@@ -2,9 +2,15 @@
 
 A Simple QBX Tax System
 
+# Dependances
+* ox_lib
+* qbx_core
+
+  
 # Installation
 
-* Change Config values in `cad_tax/config/sv_config.lua` to your liking.
+* Change Config values in `config/sv_config.lua` to your liking.
+* Copy/Paste en.json and traduct it in your language, pay attention to rename it (ex: it.json for Italian)
 * Done
 
 # Server Exports

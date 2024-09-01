@@ -1,0 +1,18 @@
+{
+    "Lang" : {
+        "player_tax" : "Tassa sul giocatore ricevuta di $%d",
+        "car_tax" : "Tassa sui veicoli ricevuta di $%d",
+        "house_tax" : "Tassa sulle case ricevuta di $%d"
+    },
+    "Tax": {
+        "Players": "È stato applicata una tassa del %s % da parte del governo per $%s.",
+        "Cars": "È stato applicata una tassa di $%s come tassa sui veicoli.",
+        "Houses": "È stata applicata una tassa di $%s come tassa sulle case.",
+        "Default": "È stata applicata una tassa al tasso standard da parte del governo per $%s."
+    },
+    "Logs": {
+        "Players": "CID: [%s] \nè stato addebitato un'imposta sul reddito di $%s",
+        "Cars": "CID : [%s] \nè stato addebitato un'imposta sui veicoli di $%s",
+        "Houses": "CID: [%s] \nè stato addebitato un'imposta sulle case di $%s"
+    }
+}

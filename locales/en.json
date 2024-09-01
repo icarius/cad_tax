@@ -1,0 +1,18 @@
+{
+    "Lang" : {
+        "player_tax" : "Player tax recieved $%d",
+        "car_tax" : "Vehicle tax recieved $%d",
+        "house_tax" : "House tax recieved $%d"
+    },
+    "Tax": {
+        "Players": "You have been taxed at %s % by the government for $%s.",
+        "Cars": "You have been taxed $%s as Vehicle Tax.",
+        "Houses": "You have been taxed $%s as House Tax.",
+        "Default": "You have been taxed at standard rate by the government for $%s."       
+    },
+    "Logs": {
+        "Players": "CID: [%s] \nwas charged income tax of $%s",
+        "Cars": "CID : [%s] \nwas charged vehicle tax of $%s",
+        "Houses": "CID: [%s] \nwas charged houses tax of $%s"
+    }
+}

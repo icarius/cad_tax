@@ -3,7 +3,7 @@ local logger = require '@qbx_core.modules.logger'
 local QBOX = exports.qbx_core
 
 local function SendNotification(playerID, msg, type)
-    TriggerClientEvent('ox_lib:notify', playerID, { title = 'GOV TAX PROGRAM', description = msg, type = type })
+    exports.qbx_core:Notify(playerID, msg, type, 5000, 'GOV TAX PROGRAM')
 end
 
 local function addMoneyToAccount(amount, text)
@@ -37,36 +37,35 @@ function PlayersTax()
             local economyTax = config.EconomyTax
             if (Player.PlayerData.money.bank or Player.PlayerData.money.cash) > economyTax.low then
                 Amount = (Player.PlayerData.money.bank * taxPercentage.low / 1000)
-                SendNotification(Players[i], ('You have been taxed at %s % by the government for $%s.'):format(taxPercentage.low, Amount))
+                SendNotification(Players[i], string.format(locale('Tax.Players'), taxPercentage.low, Amount))
             elseif (Player.PlayerData.money.bank or Player.PlayerData.money.cash) > economyTax.medium then
                 Amount = (Player.PlayerData.money.bank * taxPercentage.medium / 1000)
-                SendNotification(Players[i], ('You have been taxed at %s % by the government for $%s.'):format(taxPercentage.medium, Amount))
+                SendNotification(Players[i], string.format(locale('Tax.Players'), taxPercentage.medium, Amount))
             elseif (Player.PlayerData.money.bank or Player.PlayerData.money.cash) > economyTax.high then
                 Amount = (Player.PlayerData.money.bank * taxPercentage.high / 1000)
-                SendNotification(Players[i], ('You have been taxed at %s % by the government for $%s.'):format(taxPercentage.high, Amount))
+                SendNotification(Players[i], string.format(locale('Tax.Players'), taxPercentage.high, Amount))
             elseif (Player.PlayerData.money.bank or Player.PlayerData.money.cash) > economyTax.ultra then
                 Amount = (Player.PlayerData.money.bank * taxPercentage.ultra / 1000)
-                SendNotification(Players[i], ('You have been taxed at %s % by the government for $%s.'):format(taxPercentage.ultra, Amount))
+                SendNotification(Players[i], string.format(locale('Tax.Players'), taxPercentage.ultra, Amount))
             elseif (Player.PlayerData.money.bank or Player.PlayerData.money.cash) > economyTax.extreme then
-                SendNotification(Players[i], ('You have been taxed at %s % by the government for $%s.'):format(taxPercentage.extreme, Amount))
+                SendNotification(Players[i], string.format(locale('Tax.Players'), taxPercentage.extreme, Amount))
                 Amount = (Player.PlayerData.money.bank * taxPercentage.extreme / 1000)
             else
-                Amount = 100
-                SendNotification(Players[i], 'You have been taxed at standard rate by the government for $100.')
+                Amount = config.DefaultTax
+                SendNotification(Players[i], string.format(locale('Tax.Default'), Amount))
             end
             Player.Functions.RemoveMoney('bank', math.floor(Amount), 'incometax')
 
             logger.log({
             source = cache.source,
             event = 'Tax Cut',
-            message = ('CID: [%s] \nwas charged income tax of $%s'):format(Player.PlayerData.citizenid, math.floor(Amount)),
+            message = string.format(locale('Logs.Players'), Player.PlayerData.citizenid, math.floor(Amount))
             })
             taxAmount = taxAmount + Amount
         end
     end
     local amount = math.floor(taxAmount)
-    addMoneyToAccount(amount, string.format(config.Lang.player_tax, amount))
-    SetTimeout(config.EconomyTaxInterval * (60 * 1000), PlayersTax)
+    addMoneyToAccount(amount, string.format(locale('Lang.player_tax'), amount))
 end
 
 function CarsTax()
@@ -87,11 +86,11 @@ function CarsTax()
                 local Player = QBOX.GetPlayerByCitizenId(LP.PlayerData.citizenid)
                 if Player then
                     Player.Functions.RemoveMoney('bank', math.floor(VehTax), 'vehicletax') 
-                    SendNotification(Player.PlayerData.source, ('You have been taxed $%s as Vehicle Tax.'):format(math.floor(VehTax)))
+                    SendNotification(Player.PlayerData.source, string.format(locale('Tax.Cars'), math.floor(VehTax)))
                     logger.log({
                         source = cache.source,
                         event = 'Vehicle Tax',
-                        message = ('CID : [%s] \nwas charged vehicle tax of $%s'):format(Player.PlayerData.citizenid, math.floor(VehTax)),
+                        message = string.format(locale('Logs.Cars'), Player.PlayerData.citizenid, math.floor(VehTax))
                     })
                     taxAmount = taxAmount + VehTax
                 end
@@ -99,8 +98,7 @@ function CarsTax()
         end
     end
     local amount = math.floor(taxAmount)
-    addMoneyToAccount(amount, string.format(config.Lang.car_tax, amount))
-    SetTimeout(config.CarTaxInterval * (60 * 1000), CarsTax)
+    addMoneyToAccount(amount, string.format(locale('Lang.car_tax'), amount))
 end
 
 function HousesTax()
@@ -122,11 +120,12 @@ function HousesTax()
                 local Player = QBOX.GetPlayerByCitizenId(LP.PlayerData.citizenid)
                 if Player then
                     Player.Functions.RemoveMoney('bank', math.floor(HouseTax), 'housetax')
-                    SendNotification(Player.PlayerData.source, ('You have been taxed $%s as House Tax.'):format(math.floor(HouseTax)))
+                    SendNotification(Player.PlayerData.source, string.format(locale('Tax.Houses'), math.floor(HouseTax)))
+                    
                     logger.log({
                         source = cache.source,
                         event = 'Tax Cut',
-                        message = ('CID: [%s] \nwas charged houses tax of $%s'):format(Player.PlayerData.citizenid, math.floor(HouseTax)),
+                        message = string.format(locale('Logs.Houses'), Player.PlayerData.citizenid, math.floor(HouseTax))
                     })
                     taxAmount = taxAmount + HouseTax
                 end
@@ -134,8 +133,7 @@ function HousesTax()
         end
     end
     local amount = math.floor(taxAmount)
-    addMoneyToAccount(amount, string.format(config.Lang.house_tax, amount))
-    SetTimeout(config.HouseTaxInterval * (60 * 1000), HousesTax)
+    addMoneyToAccount(amount, string.format(locale('Lang.house_tax'), amount))
 end
 
 function GetCurrentTax(src, taxeType)
@@ -153,7 +151,7 @@ function GetCurrentTax(src, taxeType)
             elseif (Player.PlayerData.money.bank or Player.PlayerData.money.cash) > config.EconomyTax['extreme'] then
                 return config.EconomyTax['extreme']
             else
-                return 100
+                return config.DefaultTax
             end
         elseif taxeType == 'vehicle' then
             return config.CarTaxRate
@@ -163,8 +161,8 @@ function GetCurrentTax(src, taxeType)
     end
 end
 
-CreateThread(function()
-    Wait(30000) -- wait just for server to load properly then execute below
+-- Documentation : https://overextended.dev/ox_lib/Modules/Cron/Server
+cron.new("30 7 1 * *", function(task, date)
     PlayersTax()
     CarsTax()
     HousesTax()

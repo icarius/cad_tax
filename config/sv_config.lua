@@ -14,17 +14,14 @@ return {
         ultra = 0.8,
         extreme = 1,
     },
-
-    EconomyTaxInterval = 120, -- in minutes (2 hrs)
+    DefaultTax = 100,
 
     CarTaxRate = 100,         -- $100 per car
-    CarTaxInterval = 180,     -- in minutes (3hrs)
 
     HouseTaxRate = 500,       -- $500 per house
-    HouseTaxInterval = 180,   -- in minutes (3hrs)
 
     -- account where all the taxes will go to
-    TaxesAccountEnabled = false,
+    TaxesAccountEnabled = true,
 
     TaxesAccount = {
         accountType = 'business',   -- 'business' or 'player'
@@ -32,9 +29,4 @@ return {
         business_name = 'gov',      -- 'businessName' (only for business account)
     },
 
-    Lang = {
-        player_tax = 'Player tax recieved $%d',
-        car_tax = 'Vehicle tax recieved $%d',
-        house_tax = 'House tax recieved $%d'
-    },
 }
